@@ -1,0 +1,81 @@
+{
+  "name": "generator-seanjs",
+  "version": "0.0.9",
+  "description": "SEAN.JS Stack Official Yeoman Generator",
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seanjs-stack/generator-seanjs"
+  },
+  "author": {
+    "name": "SEAN.JS Stack Team",
+    "email": "support@seanjs.io",
+    "url": "https://github.com/seanjs-stack"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "scaffold",
+    "framework",
+    "component",
+    "app",
+    "seanjs",
+    "seanjs-stack",
+    "node",
+    "express",
+    "angular",
+    "redis",
+    "sequelize",
+    "sequelizejs",
+    "sean-generator",
+    "seanjs-generator",
+    "socket.io",
+    "chat"
+  ],
+  "dependencies": {
+    "bluebird": "~2.10.0",
+    "chalk": "~1.1.1",
+    "pg": "^4.4.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.9.0",
+    "underscore.string": "~3.2.2",
+    "yeoman-generator": "~0.20.3",
+    "yo": "~1.4.8"
+  },
+  "devDependencies": {
+    "mocha": "~2.3.2",
+    "temp": "~0.8.0"
+  },
+  "licenses": [{
+    "type": "MIT"
+  }],
+  "gitHead": "856ee87bc62264c6a9868540e6a06707fb90d7b3",
+  "bugs": {
+    "url": "https://github.com/seanjs-stack/generator-seanjs/issues"
+  },
+  "homepage": "https://github.com/seanjs-stack/generator-seanjs#readme",
+  "_id": "generator-seanjs@0.0.1",
+  "_shasum": "3bd8a73890672acf691038bb57e259b2bbe6852d",
+  "_from": "generator-seanjs@*",
+  "_npmVersion": "2.14.2",
+  "_nodeVersion": "4.0.0",
+  "_npmUser": {
+    "name": "omar_massad",
+    "email": "contact@omarmassad.com"
+  },
+  "dist": {
+    "shasum": "3bd8a73890672acf691038bb57e259b2bbe6852d",
+    "tarball": "http://registry.npmjs.org/generator-seanjs/-/generator-seanjs-0.0.1.tgz"
+  },
+  "maintainers": [{
+    "name": "omar_massad",
+    "email": "contact@omarmassad.com"
+  }],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/generator-seanjs/-/generator-seanjs-0.0.1.tgz"
+}
