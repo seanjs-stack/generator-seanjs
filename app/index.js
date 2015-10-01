@@ -276,6 +276,7 @@ module.exports = generators.Base.extend({
          sequelize.authenticate().then(function (errors) {
             if (!errors) {
                log.yellow('Databse connection is valid!');
+               done();
             }
          }).catch(function (error) {
             log.red('Databse connection is not valid!');

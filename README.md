@@ -10,7 +10,6 @@ Sequelize is a promise-based ORM for Node.js and io.js. It supports the dialects
 MariaDB, SQLite and MSSQL and features solid transaction support, relations, read replication and
 more.
 
-
 Based on **MEAN Stack**
 
 # Under Development!
