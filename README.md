@@ -1,8 +1,6 @@
 ![alt tag](http://www.seanjs.org/modules/core/client/img/brand/logo.png)
 
-SEAN.JS Stack Official Yeoman Generator
-
-Welcome to **SEAN.JS** Stack, the most powerful NodeJS Framework!
+Welcome to **SEAN.JS** Stack Official Yeoman Generator
 
 - [SequilizeJS](http://sequelize.readthedocs.org/en/latest/)
 - [ExpressJS](http://expressjs.com/)
