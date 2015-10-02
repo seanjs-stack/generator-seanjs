@@ -33,19 +33,23 @@ module.exports = generators.Base.extend({
          if (!this.options['skip-install']) {
             log.green('Running npm install for you....');
             log.green('This may take a couple minutes.');
-            exec('cd ' + folder + ' && npm install')
-                    .then(function () {
-                       log('');
-                       log.green('------------------------------------------');
-                       log.green('Your SEAN.JS application is ready!');
-                       log('');
-                       log.green('To Get Started, run the following command:');
-                       log('');
-                       log.yellow('cd ' + folder + ' && grunt');
-                       log('');
-                       log.green('Happy Hacking!');
-                       log.green('------------------------------------------');
-                    });
+            exec('cd ' + folder + ' && npm install').then(function () {
+               log.green('Running bower install for you....');
+               log.green('This may take a couple minutes.');
+               exec('cd ' + folder + ' && bower install --alow-root')
+                       .then(function () {
+                          log('');
+                          log.green('------------------------------------------');
+                          log.green('Your SEAN.JS application is ready!');
+                          log('');
+                          log.green('To Get Started, run the following command:');
+                          log('');
+                          log.yellow('cd ' + folder + ' && node server.js');
+                          log('');
+                          log.green('Happy Hacking!');
+                          log.green('------------------------------------------');
+                       });
+            });
          }
       });
    },
@@ -352,5 +356,4 @@ module.exports = generators.Base.extend({
          done();
       }
    }
-
 });
