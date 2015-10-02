@@ -46,7 +46,7 @@ module.exports = generators.Base.extend({
                           log('');
                           log.yellow('cd ' + folder + ' && node server.js');
                           log('');
-                          log.green('Happy Hacking!');
+                          log.green('Happy Hacking and keep us updated!');
                           log.green('------------------------------------------');
                        });
             });
