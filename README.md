@@ -2,7 +2,12 @@
 
 SEAN.JS Stack Official Yeoman Generator
 
-SEAN.JS is a full-stack JavaScript solution that helps you build fast, robust, and maintainable production web applications using ([SequelizeJS](http://docs.sequelizejs.com/en/latest), [ExpressJS](http://expressjs.com/), [AngularJS](http://angularjs.org/), and [Node.js](http://www.nodejs.org/)).
+Welcome to **SEAN.JS** Stack, the most powerful NodeJS Framework!
+
+- [SequilizeJS](http://sequelize.readthedocs.org/en/latest/)
+- [ExpressJS](http://expressjs.com/)
+- [AngularJS](https://angularjs.org/)
+- [NodeJS](https://nodejs.org/en/)
 
 **SequilizeJS**
 
@@ -13,6 +18,7 @@ more.
 Based on **MEAN Stack**
 
 # Under Development!
+[![Join the chat at https://gitter.im/seanjs-stack/seanjs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/seanjs-stack/seanjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 For more info, please visit [http://seanjs.org/status](http://seanjs.org/status)
 
