@@ -1,5 +1,7 @@
 ![alt tag](http://www.seanjs.org/modules/core/client/img/brand/logo.png)
 
+[![NPM](https://nodei.co/npm/generator-seanjs.png)](https://nodei.co/npm/<package>/)
+
 [![Documentation Status](https://readthedocs.org/projects/seanjs/badge/?version=latest)](http://seanjs.readthedocs.org/en/latest/?badge=latest)
 [![Join the chat at https://gitter.im/seanjs-stack/seanjs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/seanjs-stack/seanjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
