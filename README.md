@@ -6,6 +6,8 @@
 
 [![NPM](https://nodei.co/npm/generator-seanjs.png?downloads=true)](https://nodei.co/npm/generator-seanjs/)
 
+Welcome to **SEAN.JS** Stack Official Yeoman Generator
+
 **SEAN.JS** is a Full-Stack Javascript for an easy starting point with [**S**equilizeJS](http://sequelize.readthedocs.org/en/latest/), [**E**xpressJS](http://expressjs.com/), [**A**ngularJS](https://angularjs.org/) and [**N**odeJS](https://nodejs.org/en/) based applications.
 It is designed to give you a quick and organized way to start developing SEAN based web apps.
 
