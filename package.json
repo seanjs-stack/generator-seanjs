@@ -1,6 +1,6 @@
 {
   "name": "generator-seanjs",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "SEAN.JS Stack Official Yeoman Generator",
   "main": "app/index.js",
   "repository": {
@@ -38,14 +38,14 @@
     "chat"
   ],
   "dependencies": {
-    "bluebird": "~2.10.0",
+    "bluebird": "~3.0.5",
     "chalk": "~1.1.1",
     "pg": "^4.4.2",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.9.0",
     "underscore.string": "~3.2.2",
-    "yeoman-generator": "~0.20.3",
-    "yo": "~1.4.8"
+    "yeoman-generator": "~0.21.1",
+    "yo": "~1.5.0"
   },
   "devDependencies": {
     "mocha": "~2.3.2",

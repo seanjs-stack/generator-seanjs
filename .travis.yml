@@ -3,9 +3,12 @@ node_js:
   - 0.10
   - 0.12
   - 4
+  - 5
+  - "iojs-v1"
+  - "iojs-v2"
 matrix:
   allow_failures:
-    - node_js: 4
+    - node_js: 5
 sudo: false
 cache:
   apt: true
@@ -14,4 +17,3 @@ cache:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-seanjs' ]; then cd .. && eval "mv $currentfolder generator-seanjs" && cd generator-seanjs; fi
-
