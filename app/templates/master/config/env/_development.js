@@ -13,11 +13,11 @@ module.exports = {
     enableSequelizeLog: false
   },
   // db: {
-  //   name: "seanjs-dev",
+  //   name: "seanjs_dev",
   //   host: "localhost",
-  //   port: 8889,
-  //   username: "root",
-  //   password: "root",
+  //   port: 5432,
+  //   username: "postgres",
+  //   password: "postgres",
   //   dialect: "mysql", //mysql, postgres, sqlite3
   //   enableSequelizeLog: false
   // },

@@ -225,7 +225,7 @@ module.exports = generators.Base.extend({
          var prompts = [{
                name: 'databaseName',
                message: 'What is the database name?',
-               default: 'seanjs-dev'
+               default: 'seanjs_dev'
             }, {
                name: 'databaseHost',
                message: 'What is the database host?',
