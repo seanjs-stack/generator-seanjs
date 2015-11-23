@@ -10,16 +10,18 @@ module.exports = {
     username: "<%= databaseUsername %>",
     password: "<%= databasePassword %>",
     dialect: "postgres",
-    enableSequelizeLog: false
+    enableSequelizeLog: false,
+    ssl: false
   },
   // db: {
-  //   name: "seanjs_dev",
-  //   host: "localhost",
-  //   port: 5432,
-  //   username: "postgres",
-  //   password: "postgres",
-  //   dialect: "mysql", //mysql, postgres, sqlite3
-  //   enableSequelizeLog: false
+  //   name: process.env.DB_NAME || "seanjs_dev",
+  //   host: process.env.DB_HOST || "localhost",
+  //   port: process.env.DB_PORT || 5432,
+  //   username: process.env.DB_USERNAME || "postgres",
+  //   password: process.env.DB_PASSWORD || "postgres",
+  //   dialect: process.env.DB_DIALECT || "postgres",
+  //   enableSequelizeLog: process.env.DB_LOG || false,
+  //   ssl: process.env.DB_SSL || false
   // },
   log: {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'

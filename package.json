@@ -1,6 +1,6 @@
 {
   "name": "generator-seanjs",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "SEAN.JS Stack Official Yeoman Generator",
   "main": "app/index.js",
   "repository": {
