@@ -4,25 +4,21 @@ var defaultEnvConfig = require('./default');
 
 module.exports = {
   db: {
-    name: "<%= databaseName %>",
-    host: "<%= databaseHost %>",
-    port: <%= databasePort %>,
-    username: "<%= databaseUsername %>",
-    password: "<%= databasePassword %>",
-    dialect: "postgres",
-    enableSequelizeLog: false,
-    ssl: false
+    name: process.env.DB_NAME || "<%= databaseName %>",
+    host: process.env.DB_HOST || "<%= databaseHost %>",
+    port: process.env.DB_PORT || <%= databasePort %>,
+    username: process.env.DB_USERNAME || "<%= databaseUsername %>",
+    password: process.env.DB_PASSWORD || "<%= databasePassword %>",
+    dialect: process.env.DB_DIALECT || "postgres",
+    enableSequelizeLog: process.env.DB_LOG || false,
+    ssl: process.env.DB_SSL || false
   },
-  // db: {
-  //   name: process.env.DB_NAME || "seanjs_dev",
-  //   host: process.env.DB_HOST || "localhost",
-  //   port: process.env.DB_PORT || 5432,
-  //   username: process.env.DB_USERNAME || "postgres",
-  //   password: process.env.DB_PASSWORD || "postgres",
-  //   dialect: process.env.DB_DIALECT || "postgres",
-  //   enableSequelizeLog: process.env.DB_LOG || false,
-  //   ssl: process.env.DB_SSL || false
-  // },
+  redis: {
+    host: process.env.REDIS_HOST || "localhost",
+    port: process.env.REDIS_PORT || 6379,
+    database: process.env.REDIS_DATABASE || 0,
+    password: process.env.REDIS_PASSWORD || "",
+  },
   log: {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
     format: 'dev',
