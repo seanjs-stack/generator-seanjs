@@ -9,7 +9,7 @@ module.exports = {
     port: process.env.DB_PORT || <%= databasePort %>,
     username: process.env.DB_USERNAME || "<%= databaseUsername %>",
     password: process.env.DB_PASSWORD || "<%= databasePassword %>",
-    dialect: process.env.DB_DIALECT || "postgres",
+    dialect: process.env.DB_DIALECT || "<%= databaseDialect %>",
     enableSequelizeLog: process.env.DB_LOG || false,
     ssl: process.env.DB_SSL || false
   },

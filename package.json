@@ -1,6 +1,6 @@
 {
   "name": "generator-seanjs",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "SEAN.JS Stack Official Yeoman Generator",
   "main": "app/index.js",
   "repository": {
@@ -41,6 +41,7 @@
   "dependencies": {
     "bluebird": "~3.0.5",
     "chalk": "~1.1.1",
+    "mysql": "^2.9.0",
     "pg": "^4.4.2",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.9.0",
@@ -52,9 +53,11 @@
     "mocha": "~2.3.2",
     "temp": "~0.8.0"
   },
-  "licenses": [{
-    "type": "MIT"
-  }],
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
   "gitHead": "856ee87bc62264c6a9868540e6a06707fb90d7b3",
   "bugs": {
     "url": "https://github.com/seanjs-stack/generator-seanjs/issues"
@@ -63,8 +66,8 @@
   "_id": "generator-seanjs@0.0.1",
   "_shasum": "3bd8a73890672acf691038bb57e259b2bbe6852d",
   "_from": "generator-seanjs@*",
-  "_npmVersion": "2.14.2",
-  "_nodeVersion": "4.0.0",
+  "_npmVersion": "3.4.0",
+  "_nodeVersion": "4.2.2",
   "_npmUser": {
     "name": "omar_massad",
     "email": "contact@omarmassad.com"
@@ -73,10 +76,12 @@
     "shasum": "3bd8a73890672acf691038bb57e259b2bbe6852d",
     "tarball": "http://registry.npmjs.org/generator-seanjs/-/generator-seanjs-0.0.1.tgz"
   },
-  "maintainers": [{
-    "name": "omar_massad",
-    "email": "contact@omarmassad.com"
-  }],
+  "maintainers": [
+    {
+      "name": "omar_massad",
+      "email": "contact@omarmassad.com"
+    }
+  ],
   "directories": {},
   "_resolved": "https://registry.npmjs.org/generator-seanjs/-/generator-seanjs-0.0.1.tgz"
 }

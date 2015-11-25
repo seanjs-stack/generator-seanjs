@@ -31,6 +31,8 @@ Based on **MEAN Stack**
 
 For more info, please visit [http://seanjs.org/status](http://seanjs.org/status)
 
+Live example: http://seanjs.herokuapp.com
+
 ---
 
 ### Installation
@@ -70,6 +72,14 @@ $ bower install --alow-root
 ```bash
 $ node server.js
 ```
+
+##### For MySQL, MariaDB, SQLite and MSSQL
+
+Please check the [Template Folder in the SEAN.JS Generator](https://github.com/seanjs-stack/generator-seanjs/tree/master/app/templates/master/modules)
+
+Simply replace these files and update your database in the `config/env/`
+
+---
 
 ##### Using Yeoman Generator:
 
