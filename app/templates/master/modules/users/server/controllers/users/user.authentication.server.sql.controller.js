@@ -59,6 +59,7 @@ exports.signup = function(req, res) {
 exports.signin = function(req, res, next) {
 
   passport.authenticate('local', function(err, user, info) {
+
     if (err || !user) {
       res.status(400).send({
         message: err
@@ -216,17 +217,17 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
               newUser.provider = providerUserProfile.provider;
               newUser.providerData = JSON.stringify(providerUserProfile.providerData);
 
-              if (providerUserProfile.provider == 'facebook') {
+              if (providerUserProfile.provider === 'facebook') {
                 newUser.facebookUserId = providerUserProfile.providerData.id;
-              } else if (providerUserProfile.provider == 'twitter') {
+              } else if (providerUserProfile.provider === 'twitter') {
                 newUser.twitterUserId = providerUserProfile.providerData.id;
-              } else if (providerUserProfile.provider == 'github') {
+              } else if (providerUserProfile.provider === 'github') {
                 newUser.githubUserId = providerUserProfile.providerData.id;
-              } else if (providerUserProfile.provider == 'linkedin') {
+              } else if (providerUserProfile.provider === 'linkedin') {
                 newUser.linkedinUserId = providerUserProfile.providerData.id;
-              } else if (providerUserProfile.provider == 'paypal') {
+              } else if (providerUserProfile.provider === 'paypal') {
                 newUser.paypalUserId = providerUserProfile.providerData.user_id;
-              } else if (providerUserProfile.provider == 'google') {
+              } else if (providerUserProfile.provider === 'google') {
                 newUser.googleUserId = providerUserProfile.providerData.id;
               }
 
@@ -273,18 +274,18 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
       user.additionalProvidersData = JSON.stringify(user.additionalProvidersData);
 
-      if (providerUserProfile.provider == 'facebook') {
+      if (providerUserProfile.provider === 'facebook') {
         user.facebookUserId = providerUserProfile.providerData.id;
-      } else if (providerUserProfile.provider == 'twitter') {
+      } else if (providerUserProfile.provider === 'twitter') {
         user.twitterUserId = providerUserProfile.providerData.id;
-      } else if (providerUserProfile.provider == 'github') {
+      } else if (providerUserProfile.provider === 'github') {
         user.githubUserId = providerUserProfile.providerData.id;
-      } else if (providerUserProfile.provider == 'linkedin') {
-        newUser.linkedinUserId = providerUserProfile.providerData.id;
-      } else if (providerUserProfile.provider == 'paypal') {
-        newUser.paypalUserId = providerUserProfile.providerData.user_id;
-      } else if (providerUserProfile.provider == 'google') {
-        newUser.googleUserId = providerUserProfile.providerData.id;
+      } else if (providerUserProfile.provider === 'linkedin') {
+        user.linkedinUserId = providerUserProfile.providerData.id;
+      } else if (providerUserProfile.provider === 'paypal') {
+        user.paypalUserId = providerUserProfile.providerData.user_id;
+      } else if (providerUserProfile.provider === 'google') {
+        user.googleUserId = providerUserProfile.providerData.id;
       }
 
       // And save the user
