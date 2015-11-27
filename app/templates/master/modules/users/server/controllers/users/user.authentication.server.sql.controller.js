@@ -231,8 +231,6 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
                 newUser.googleUserId = providerUserProfile.providerData.id;
               }
 
-              newUser.roles = ["user"];
-
               User.create(newUser).then(function(user) {
                 if (!user) {
                   return done(false, user);
