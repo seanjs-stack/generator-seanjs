@@ -2,7 +2,7 @@
     "name": "<%= slugifiedAppName %>",
     "description": "<%= appDescription %>",
     "version": "0.0.1",
-    "seanjs-version": "0.0.31",
+    "seanjs-version": "0.0.32",
     "author": "<%= capitalizedAppAuthor %>",
     "license": "MIT",
     "engines": {
