@@ -7,7 +7,8 @@ var Promise = require('bluebird'),
   https = require('https'),
   fs = require('fs'),
   redis = require('redis'),
-  log = require('./log');
+  chalk = require('chalk')
+log = require('./log');
 
 var exec = function(cmd) {
   return new Promise(function(resolve, reject) {
@@ -54,32 +55,42 @@ var versions = {
 
 module.exports = generators.Base.extend({
   init: function() {
+
     this.pkg = this.fs.readJSON(path.join(__dirname, '../package.json'));
 
     this.on('end', function() {
+      var done = this.async();
       if (!this.options['skip-install']) {
-        log('\n');
-        log.green('Running npm install & bower install for you....');
-        log.green('This may take a couple minutes.');
+        log.green('\nRunning the npm install & bower install for you...');
+        log.yellow('This may take a couple minutes. Time for coffee maybe?');
+
+        log.white('\n');
+        log.white('                     )))');
+        log.white('                     (((');
+        log.white('                    +-----+');
+        log.white('                    |     |]');
+        log.white('                    |     |');
+        log.white("                    '-----'");
+
         exec('cd ' + folder + ' && npm install').then(function() {
           exec('cd ' + folder + ' && bower install --alow-root').then(function() {
             log('\n');
-            log.green('------------------------------------------');
+            log.white('------------------------------------------');
             log.green('Your SEAN.JS application is ready!');
             log('\n');
-            log.green('To Get Started, run the following command:');
-            log('\n');
+            log.white('To Get Started, run the following command:');
             log.yellow('cd ' + folder + ' && node server.js');
+            log.white('\nThe default environment configuration are in ' + chalk.magenta(folderPath + 'config/env/development.js'));
+            log.cyan('\nHappy Hacking and keep us updated!');
+            log.white('------------------------------------------');
             log('\n');
-            log.magenta('The environment configuration are in config/env');
-            log('\n');
-            log.green('Happy Hacking and keep us updated!');
-            log.green('------------------------------------------');
+            process.exit();
           });
         });
       }
     });
   },
+
   checkForGit: function() {
     var done = this.async();
 
@@ -94,7 +105,14 @@ module.exports = generators.Base.extend({
   },
 
   welcomeMessage: function() {
-    log.green('You\'re using the official SEAN.JS Stack generator.');
+    log('\n');
+    log.white('---------------------------------------------------------------');
+    log.white("          ╔═╗  ╔═╗  ╔═╗  ╔╗╔      ╦  ╔═╗");
+    log.white("          ╚═╗  ║╣   ╠═╣  ║║║      ║  ╚═╗");
+    log.white("          ╚═╝  ╚═╝  ╩ ╩  ╝╚╝  o  ╚╝  ╚═╝");
+    log.white('---------------------------------------------------------------');
+    log.green('Welcome to the official SEAN.JS Stack generator version ' + chalk.yellow(this.pkg.version));
+    log('\n');
   },
 
   promptForVersion: function() {
@@ -137,7 +155,7 @@ module.exports = generators.Base.extend({
   cloneRepo: function() {
     var done = this.async();
 
-    log.yellow('Cloning the SEAN.JS Stack repo...');
+    log.yellow('Cloning the ' + chalk.green('SEAN.JS') + ' Stack repo...');
 
     exec('git clone --branch ' + versions[version] + ' https://github.com/seanjs-stack/seanjs.git ' + folder)
       .then(function() {
@@ -409,7 +427,7 @@ module.exports = generators.Base.extend({
       var client = redis.createClient(this.redisPort, this.redisHost);
 
       client.on('connect', function() {
-        log.green('\nRedis connection is valid!\n');
+        log.green('Redis connection is valid!\n');
         done();
       });
 
@@ -498,6 +516,7 @@ module.exports = generators.Base.extend({
       done();
     }
   },
+
   removeArticlesExample: function() {
     var done = this.async();
 
