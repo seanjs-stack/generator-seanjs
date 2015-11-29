@@ -14,9 +14,9 @@ module.exports = {
     ssl: process.env.DB_SSL || false
   },
   redis: {
-    host: process.env.REDIS_HOST || "localhost",
-    port: process.env.REDIS_PORT || 6379,
-    database: process.env.REDIS_DATABASE || 0,
+    host: process.env.REDIS_HOST || "<%= redisHost %>",
+    port: process.env.REDIS_PORT || <%= redisPort %>,
+    database: process.env.REDIS_DATABASE || <%= redisDatabase %>,
     password: process.env.REDIS_PASSWORD || "",
   },
   log: {

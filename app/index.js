@@ -4,6 +4,9 @@ var Promise = require('bluebird'),
   s = require('underscore.string'),
   generators = require('yeoman-generator'),
   Sequelize = require('sequelize'),
+  https = require('https'),
+  fs = require('fs'),
+  redis = require('redis'),
   log = require('./log');
 
 var exec = function(cmd) {
@@ -15,6 +18,30 @@ var exec = function(cmd) {
         resolve(res);
       }
     });
+  });
+};
+
+var download = function(url, dest, cb) {
+  var request = https.get(url, function(response) {
+    if (response.statusCode !== 200) {
+      log.red('Unable to download: ' + url);
+      log.yellow('\nPlease download it manually and place it in ' + dest + '\n\n');
+      if (cb) cb(false);
+    } else {
+      var file = fs.createWriteStream(dest, {
+        flags: 'w'
+      });
+      response.pipe(file);
+      file.on('finish', function() {
+        log.green('Downloaded: ' + dest + '\n');
+        file.close(cb); // close() is async, call cb after close completes.
+      });
+
+    }
+  }).on('error', function(err) {
+    log.red('Unable to download: ' + url);
+    log.yellow('\nPlease download it manually and place it in ' + dest + '\n\n');
+    if (cb) cb(err.message);
   });
 };
 
@@ -31,24 +58,24 @@ module.exports = generators.Base.extend({
 
     this.on('end', function() {
       if (!this.options['skip-install']) {
-        log.green('Running npm install for you....');
+        log('\n');
+        log.green('Running npm install & bower install for you....');
         log.green('This may take a couple minutes.');
         exec('cd ' + folder + ' && npm install').then(function() {
-          log.green('Running bower install for you....');
-          log.green('This may take a couple minutes.');
-          exec('cd ' + folder + ' && bower install --alow-root')
-            .then(function() {
-              log('');
-              log.green('------------------------------------------');
-              log.green('Your SEAN.JS application is ready!');
-              log('');
-              log.green('To Get Started, run the following command:');
-              log('');
-              log.yellow('cd ' + folder + ' && node server.js');
-              log('');
-              log.green('Happy Hacking and keep us updated!');
-              log.green('------------------------------------------');
-            });
+          exec('cd ' + folder + ' && bower install --alow-root').then(function() {
+            log('\n');
+            log.green('------------------------------------------');
+            log.green('Your SEAN.JS application is ready!');
+            log('\n');
+            log.green('To Get Started, run the following command:');
+            log('\n');
+            log.yellow('cd ' + folder + ' && node server.js');
+            log('\n');
+            log.magenta('The environment configuration are in config/env');
+            log('\n');
+            log.green('Happy Hacking and keep us updated!');
+            log.green('------------------------------------------');
+          });
         });
       }
     });
@@ -65,11 +92,11 @@ module.exports = generators.Base.extend({
         return;
       });
   },
-  welcomeMessage: function() {
-    log(this.yeoman);
 
+  welcomeMessage: function() {
     log.green('You\'re using the official SEAN.JS Stack generator.');
   },
+
   promptForVersion: function() {
     var done = this.async();
 
@@ -91,6 +118,7 @@ module.exports = generators.Base.extend({
       done();
     }.bind(this));
   },
+
   promptForFolder: function() {
     var done = this.async();
     var prompt = {
@@ -105,20 +133,22 @@ module.exports = generators.Base.extend({
       done();
     }.bind(this));
   },
+
   cloneRepo: function() {
     var done = this.async();
 
-    log.green('Cloning the SEAN.JS Stack repo...');
+    log.yellow('Cloning the SEAN.JS Stack repo...');
 
     exec('git clone --branch ' + versions[version] + ' https://github.com/seanjs-stack/seanjs.git ' + folder)
       .then(function() {
         done();
       })
       .catch(function(err) {
-        log.red(err);
+        log.red("\n" + err);
         return;
       });
   },
+
   removeFiles: function() {
     var done = this.async();
 
@@ -126,9 +156,7 @@ module.exports = generators.Base.extend({
       'package.json',
       'bower.json',
       'config/env/default.js',
-      'config/env/development.js',
-      'modules/users/server/models/user.server.model.js',
-      'modules/users/server/controllers/users/user.authentication.server.controller.js'
+      'config/env/development.js'
     ];
 
     var remove = [];
@@ -146,6 +174,7 @@ module.exports = generators.Base.extend({
         return;
       });
   },
+
   getPrompts: function() {
     var done = this.async();
 
@@ -191,6 +220,7 @@ module.exports = generators.Base.extend({
       done();
     }.bind(this));
   },
+
   promptForDatabaseDialect: function() {
     var done = this.async();
 
@@ -207,6 +237,7 @@ module.exports = generators.Base.extend({
       done();
     }.bind(this));
   },
+
   promptForQuestionDatabaseSetup: function() {
     var done = this.async();
 
@@ -222,6 +253,7 @@ module.exports = generators.Base.extend({
       done();
     }.bind(this));
   },
+
   promptDatabaseSetup: function() {
     var done = this.async();
 
@@ -240,8 +272,6 @@ module.exports = generators.Base.extend({
       } else {
         log.magenta('Please make sure you that have the database already set-up');
       }
-
-      log.white('\n');
 
       var prompts = [{
         name: 'databaseName',
@@ -285,10 +315,11 @@ module.exports = generators.Base.extend({
       }.bind(this));
     }
   },
+
   promptForDatabaseCheck: function() {
     var done = this.async();
     if (this.checkDatabaseConnection) {
-      log.green('Checking the database connection...');
+      log.yellow('Checking the database connection...');
 
       var sequelize = new Sequelize(this.databaseName, this.databaseUsername, this.databasePassword, {
         host: this.databaseHost,
@@ -300,20 +331,121 @@ module.exports = generators.Base.extend({
 
       sequelize.authenticate().then(function(errors) {
         if (!errors) {
-          log.yellow('Databse connection is valid!');
+          log.green('Databse connection is valid!');
           done();
         }
       }).catch(function(error) {
-        log.red('Databse connection is not valid!');
-        log.red('\n' + error + '\n');
-        log.blue('The setup will continue, please check the errors afterwards');
-        log.red('\n');
+        log.red('\nDatabse connection is not valid!');
+        log.red(error + '\n');
+        log.yellow('The generator will continue, please check the database error afterwards');
         done();
       });
     } else {
       done();
     }
   },
+
+  promptForQuestionRedisSetup: function() {
+    var done = this.async();
+
+    var prompt = {
+      type: 'confirm',
+      name: 'questionRedisSetup',
+      message: 'Do you want to setup the Redis connection now?',
+      default: true
+    };
+
+    this.prompt(prompt, function(props) {
+      this.questionRedisSetup = props.questionRedisSetup;
+      done();
+    }.bind(this));
+  },
+
+  promptRedisSetup: function() {
+    var done = this.async();
+
+    if (!this.questionRedisSetup) {
+      done();
+    } else {
+
+      log.magenta('Please make sure you that have the redis server already set-up');
+
+      var prompts = [{
+        name: 'redisHost',
+        message: 'What is the redis host?',
+        default: 'localhost'
+      }, {
+        name: 'redisPort',
+        message: 'What is the redis host?',
+        default: 6379
+      }, {
+        name: 'redisDatabase',
+        message: 'What is the redis database?',
+        default: 0
+      }, {
+        type: 'confirm',
+        name: 'checkRedisConnection',
+        message: 'Would you like to check the redis connection now?',
+        default: true
+      }];
+
+      this.prompt(prompts, function(props) {
+        this.redisHost = props.redisHost;
+        this.redisPort = props.redisPort;
+        this.redisDatabase = props.redisDatabase;
+        this.checkRedisConnection = props.checkRedisConnection;
+
+        done();
+      }.bind(this));
+    }
+  },
+
+  checkRedisConnection: function() {
+    var done = this.async();
+
+    if (!this.checkRedisConnection) {
+      done();
+    } else {
+      var client = redis.createClient(this.redisPort, this.redisHost);
+
+      client.on('connect', function() {
+        log.green('\nRedis connection is valid!\n');
+        done();
+      });
+
+      client.on("error", function(err) {
+        log.red("\nUnable to connect to redis on " + err.address + " with port: " + err.port + "\n");
+        client.end()
+        log.yellow("The generator will continue, please make sure you install/run redis server for the sessions\n");
+        done();
+      });
+
+
+    }
+  },
+
+  downloadSQLFiles: function() {
+    var done = this.async();
+    if (this.databaseDialect !== 'postgres') {
+      log.yellow('Downloading SQL compatible files...\n');
+
+      var userModelURL = "https://gist.githubusercontent.com/Massad/3986f4b12d871de8d353/raw/user.server.model.js";
+      var userModelDest = folderPath + 'modules/users/server/models/user.server.model.js';
+
+      var userAuthenticationlURL = "https://gist.githubusercontent.com/Massad/f6f649d60ad3009f7b99/raw/user.authentication.server.controller.js";
+      var userAuthenticationlDest = folderPath + 'modules/users/server/controllers/users/user.authentication.server.controller.js';
+
+      download(userModelURL, userModelDest, function(response) {
+        download(userAuthenticationlURL, userAuthenticationlDest, function(response2) {
+          done();
+        });
+      });
+
+    } else {
+      done();
+    }
+  },
+
   copyTemplates: function() {
     this.fs.copyTpl(
       this.templatePath(version + '/_package.json'),
@@ -344,29 +476,12 @@ module.exports = generators.Base.extend({
         databaseUsername: this.databaseUsername || 'postgres',
         databasePassword: this.databasePassword || 'postgres',
         databaseDialect: this.databaseDialect || 'postgres',
+        redisHost: this.redisHost || 'localhost',
+        redisPort: this.redisPort || 6379,
+        redisDatabase: this.redisDatabase || 0
       });
-
-    if (this.databaseDialect === 'postgres') {
-      this.fs.copyTpl(
-        this.templatePath(version + '/modules/users/server/models/user.server.model.js'),
-        this.destinationPath(folderPath + '/modules/users/server/models/user.server.model.js')
-      );
-      this.fs.copyTpl(
-        this.templatePath(version + '/modules/users/server/controllers/users/user.authentication.server.controller.js'),
-        this.destinationPath(folderPath + '/modules/users/server/controllers/users/user.authentication.server.controller.js')
-      );
-    } else {
-      this.fs.copyTpl(
-        this.templatePath(version + '/modules/users/server/models/user.server.sql.model.js'),
-        this.destinationPath(folderPath + '/modules/users/server/models/user.server.model.js')
-      );
-      this.fs.copyTpl(
-        this.templatePath(version + '/modules/users/server/controllers/users/user.authentication.server.sql.controller.js'),
-        this.destinationPath(folderPath + '/modules/users/server/controllers/users/user.authentication.server.controller.js')
-      );
-    }
-
   },
+
   removeChatExample: function() {
     var done = this.async();
 
@@ -399,4 +514,5 @@ module.exports = generators.Base.extend({
       done();
     }
   }
+
 });

@@ -1,6 +1,6 @@
 {
   "name": "generator-seanjs",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "SEAN.JS Stack Official Yeoman Generator",
   "main": "app/index.js",
   "repository": {
@@ -41,6 +41,7 @@
   "dependencies": {
     "bluebird": "~3.0.5",
     "chalk": "~1.1.1",
+    "connect-redis": "^3.0.1",
     "mysql": "^2.9.0",
     "pg": "^4.4.2",
     "pg-hstore": "^2.3.2",
