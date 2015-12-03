@@ -488,7 +488,7 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath(version + '/config/env/_development.js'),
       this.destinationPath(folderPath + 'config/env/development.js'), {
-        databaseName: this.databaseName || 'seanjs-dev',
+        databaseName: this.databaseName || 'seanjs_dev',
         databaseHost: this.databaseHost || 'localhost',
         databasePort: this.databasePort || 5432,
         databaseUsername: this.databaseUsername || 'postgres',
