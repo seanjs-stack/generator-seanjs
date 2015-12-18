@@ -7,8 +7,10 @@ var Promise = require('bluebird'),
   https = require('https'),
   fs = require('fs'),
   redis = require('redis'),
-  chalk = require('chalk')
-log = require('./log');
+  chalk = require('chalk'),
+  pg = require('pg'),
+  mysql = require('mysql'),
+  log = require('./log');
 
 var exec = function(cmd) {
   return new Promise(function(resolve, reject) {
@@ -279,16 +281,14 @@ module.exports = generators.Base.extend({
       done();
     } else {
 
-      if (this.databaseDialect === 'postgres') {
-        log.magenta('Please make sure you that have the Postgres database already set-up');
+      log.magenta('Please make sure that you have the ' + this.databaseDialect + ' database already running');
 
+      if (this.databaseDialect === 'postgres') {
         log.white('For Fedora:\nhttps://fedoraproject.org/wiki/PostgreSQL');
         log.white('For Ubuntu:\nhttps://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04');
         log.white('For MAC:\nhttp://postgresapp.com');
         log.white('For Windows:\nhttp://www.postgresql.org/download/windows');
         log.white('For Others:\n Google.com :)');
-      } else {
-        log.magenta('Please make sure you that have the database already set-up');
       }
 
       var prompts = [{
@@ -334,34 +334,87 @@ module.exports = generators.Base.extend({
     }
   },
 
-  promptForDatabaseCheck: function() {
+
+  createDatabase: function() {
     var done = this.async();
     if (this.checkDatabaseConnection) {
+
       log.yellow('Checking the database connection...');
 
-      var sequelize = new Sequelize(this.databaseName, this.databaseUsername, this.databasePassword, {
-        host: this.databaseHost,
-        port: this.databasePort,
-        dialect: this.databaseDialect,
-        logging: false,
-        validateConnection: true
-      });
+      var databaseName = this.databaseName;
+      var databaseHost = this.databaseHost;
 
-      sequelize.authenticate().then(function(errors) {
-        if (!errors) {
-          log.green('Databse connection is valid!');
+      if (this.databaseDialect !== 'postgres') {
+        var pool = mysql.createPool({
+          host: this.databaseHost,
+          port: this.databasePort,
+          user: this.databaseUsername,
+          password: this.databasePassword
+        });
+
+        pool.getConnection(function(err, connection) {
+          if (!err) {
+            connection.query('CREATE DATABASE ' + databaseName);
+            log.green('\n' + databaseName + ' database has been successfully created\n');
+          } else {
+            log.red('\nDatabase error: ' + err);
+            log.yellow('\nThe generator will continue, please create the database manually afterwards\n');
+          }
+          connection.release();
           done();
-        }
-      }).catch(function(error) {
-        log.red('\nDatabse connection is not valid!');
-        log.red(error + '\n');
-        log.yellow('The generator will continue, please check the database error afterwards');
-        done();
-      });
+        });
+
+      } else {
+        var conStringPri = 'postgres://' + this.databaseUsername + ':' + this.databasePassword + '@' + this.databaseHost + ':' + this.databasePort;
+
+        // Connect to postgres
+        require('pg').connect(conStringPri, function(err, client, finished) {
+          if (!err) {
+            client.query('CREATE DATABASE ' + databaseName, function(err) {
+              log.green('\n' + databaseName + ' database has been successfully created\n');
+              client.end();
+              done();
+            });
+          } else {
+            log.red('\nUnable to connect to postgres at: ' + databaseHost);
+            log.yellow('\nThe generator will continue, please create the database manually afterwards\n');
+            done();
+          }
+        });
+      }
     } else {
       done();
     }
   },
+
+  // promptForDatabaseCheck: function() {
+  //   var done = this.async();
+  //   if (this.checkDatabaseConnection) {
+  //     log.yellow('Checking the database connection...');
+  //
+  //     var sequelize = new Sequelize(this.databaseName, this.databaseUsername, this.databasePassword, {
+  //       host: this.databaseHost,
+  //       port: this.databasePort,
+  //       dialect: this.databaseDialect,
+  //       logging: false,
+  //       validateConnection: true
+  //     });
+  //
+  //     sequelize.authenticate().then(function(errors) {
+  //       if (!errors) {
+  //         log.green('Databse connection is valid!');
+  //         done();
+  //       }
+  //     }).catch(function(error) {
+  //       log.red('\nDatabse connection is not valid!');
+  //       log.red(error + '\n');
+  //       log.yellow('The generator will continue, please check the database error afterwards');
+  //       done();
+  //     });
+  //   } else {
+  //     done();
+  //   }
+  // },
 
   promptForQuestionRedisSetup: function() {
     var done = this.async();
@@ -386,7 +439,7 @@ module.exports = generators.Base.extend({
       done();
     } else {
 
-      log.magenta('Please make sure you that have the redis server already set-up');
+      log.magenta('Please make sure that you have the redis server already running');
 
       var prompts = [{
         name: 'redisHost',
