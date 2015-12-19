@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 var Promise = require('bluebird'),
   child_process = require('child_process'),
@@ -184,7 +184,7 @@ module.exports = generators.Base.extend({
     var remove = [];
 
     for (var i = 0; i < files.length; i++) {
-      remove.push(exec('rm ./' + folder + '/' + files[i]));
+      remove.push(exec('rm ./' + folder + '/' + files[i]))
     };
 
     Promise.all(remove)
@@ -373,7 +373,12 @@ module.exports = generators.Base.extend({
         require('pg').connect(conStringPri, function(err, client, finished) {
           if (!err) {
             client.query('CREATE DATABASE ' + databaseName, function(err) {
-              log.green('\n' + databaseName + ' database has been successfully created\n');
+              if (!err) {
+                log.green('\n' + databaseName + ' database has been successfully created\n');
+              } else {
+                log.red('\nUnable to created postgres database');
+                log.yellow('\nThe generator will continue, please create the database manually afterwards\n');
+              }
               client.end();
               done();
             });
