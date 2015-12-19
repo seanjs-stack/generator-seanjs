@@ -184,8 +184,8 @@ module.exports = generators.Base.extend({
     var remove = [];
 
     for (var i = 0; i < files.length; i++) {
-      remove.push(exec('rm ./' + folder + '/' + files[i]))
-    };
+      remove.push(exec('rm ./' + folder + '/' + files[i]));
+    }
 
     Promise.all(remove)
       .then(function() {
@@ -394,35 +394,6 @@ module.exports = generators.Base.extend({
     }
   },
 
-  // promptForDatabaseCheck: function() {
-  //   var done = this.async();
-  //   if (this.checkDatabaseConnection) {
-  //     log.yellow('Checking the database connection...');
-  //
-  //     var sequelize = new Sequelize(this.databaseName, this.databaseUsername, this.databasePassword, {
-  //       host: this.databaseHost,
-  //       port: this.databasePort,
-  //       dialect: this.databaseDialect,
-  //       logging: false,
-  //       validateConnection: true
-  //     });
-  //
-  //     sequelize.authenticate().then(function(errors) {
-  //       if (!errors) {
-  //         log.green('Databse connection is valid!');
-  //         done();
-  //       }
-  //     }).catch(function(error) {
-  //       log.red('\nDatabse connection is not valid!');
-  //       log.red(error + '\n');
-  //       log.yellow('The generator will continue, please check the database error afterwards');
-  //       done();
-  //     });
-  //   } else {
-  //     done();
-  //   }
-  // },
-
   promptForQuestionRedisSetup: function() {
     var done = this.async();
 
@@ -493,7 +464,8 @@ module.exports = generators.Base.extend({
 
       client.on("error", function(err) {
         log.red("\nUnable to connect to redis on " + err.address + " with port: " + err.port + "\n");
-        client.end()
+        log.white('Error: ' + err);
+        client.end();
         log.yellow("The generator will continue, please make sure you install/run redis server for the sessions\n");
         done();
       });
