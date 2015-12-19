@@ -1,4 +1,4 @@
-![alt tag](http://seanjs.org/modules/core/client/img/brand/logo.png)
+![alt tag](http://www.seanjs.org/modules/core/client/img/brand/logo.png)
 
 ```bash
 Pronounced as SEEN.JS
@@ -6,9 +6,11 @@ Pronounced as SEEN.JS
 
 [![Documentation Status](https://readthedocs.org/projects/seanjs/badge/?version=latest)](http://seanjs.readthedocs.org/en/latest/?badge=latest)
 [![Join the chat at https://gitter.im/seanjs-stack/seanjs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/seanjs-stack/seanjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/seanjs-stack/seanjs.svg?branch=master)](https://travis-ci.org/seanjs-stack/seanjs)
-[![Dependencies Status](https://david-dm.org/seanjs-stack/seanjs.svg)](https://david-dm.org/seanjs-stack/seanjs)
+[![Build Status](https://travis-ci.org/seanjs-stack/generator-seanjs.svg?branch=master)](https://travis-ci.org/seanjs-stack/generator-seanjs)
+[![Dependencies Status](https://david-dm.org/seanjs-stack/generator-seanjs.svg)](https://david-dm.org/seanjs-stack/generator-seanjs)
+[![bitHound Overall Score](https://www.bithound.io/github/seanjs-stack/generator-seanjs/badges/score.svg)](https://www.bithound.io/github/seanjs-stack/generator-seanjs)
 [![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)](http://seanjs.herokuapp.com)
+[![Built with Grunt](https://img.shields.io/badge/built%20with-GRUNT-orange.svg)](http://gruntjs.com/)
 
 [![NPM](https://nodei.co/npm/generator-seanjs.png?downloads=true)](https://nodei.co/npm/generator-seanjs/)
 
@@ -32,6 +34,33 @@ Based on **MEAN Stack**
 ---
 
 ### Live Example: [http://seanjs.herokuapp.com](http://seanjs.herokuapp.com)
+
+---
+### For quick development and deployment:
+
+**Install:**
+* [Docker](https://docs.docker.com/installation/#installation)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
+
+Using Docker, you don't have to install any prerequisites on your machine.
+Just install [Docker](https://docs.docker.com/installation/#installation), run `docker-compose up` and you are up and running!
+
+You will have these containers created for you:
+
+* Nodejs (4.2.3)
+* PostgreSQL (Latest)
+* Redis (Latest)
+
+
+Local development and testing with compose:
+```bash
+$ docker-compose up
+```
+
+> Note: You might need to try this command `eval "$(docker-machine env default)"` in the project directory root to activate Docker
+
+*By default, the url will be: [http://192.168.99.100:3000](http://192.168.99.100:3000)*
 
 ---
 
