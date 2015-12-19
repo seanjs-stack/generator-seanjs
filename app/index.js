@@ -497,39 +497,31 @@ module.exports = generators.Base.extend({
   },
 
   copyTemplates: function() {
-    this.fs.copyTpl(
-      this.templatePath(version + '/_package.json'),
-      this.destinationPath(folderPath + 'package.json'), {
-        slugifiedAppName: this.slugifiedAppName,
-        appDescription: this.appDescription,
-        capitalizedAppAuthor: this.capitalizedAppAuthor
-      });
-    this.fs.copyTpl(
-      this.templatePath(version + '/_bower.json'),
-      this.destinationPath(folderPath + 'bower.json'), {
-        slugifiedAppName: this.slugifiedAppName,
-        appDescription: this.appDescription
-      });
-    this.fs.copyTpl(
-      this.templatePath(version + '/config/env/_default.js'),
-      this.destinationPath(folderPath + 'config/env/default.js'), {
-        appName: this.appName,
-        appDescription: this.appDescription,
-        appKeywords: this.appKeywords
-      });
-    this.fs.copyTpl(
-      this.templatePath(version + '/config/env/_development.js'),
-      this.destinationPath(folderPath + 'config/env/development.js'), {
-        databaseName: this.databaseName || 'seanjs_dev',
-        databaseHost: this.databaseHost || 'localhost',
-        databasePort: this.databasePort || 5432,
-        databaseUsername: this.databaseUsername || 'postgres',
-        databasePassword: this.databasePassword || 'postgres',
-        databaseDialect: this.databaseDialect || 'postgres',
-        redisHost: this.redisHost || 'localhost',
-        redisPort: this.redisPort || 6379,
-        redisDatabase: this.redisDatabase || 0
-      });
+    this.fs.copyTpl(this.templatePath(version + '/_package.json'), this.destinationPath(folderPath + 'package.json'), {
+      slugifiedAppName: this.slugifiedAppName,
+      appDescription: this.appDescription,
+      capitalizedAppAuthor: this.capitalizedAppAuthor
+    });
+    this.fs.copyTpl(this.templatePath(version + '/_bower.json'), this.destinationPath(folderPath + 'bower.json'), {
+      slugifiedAppName: this.slugifiedAppName,
+      appDescription: this.appDescription
+    });
+    this.fs.copyTpl(this.templatePath(version + '/config/env/_default.js'), this.destinationPath(folderPath + 'config/env/default.js'), {
+      appName: this.appName,
+      appDescription: this.appDescription,
+      appKeywords: this.appKeywords
+    });
+    this.fs.copyTpl(this.templatePath(version + '/config/env/_development.js'), this.destinationPath(folderPath + 'config/env/development.js'), {
+      databaseName: this.databaseName || 'seanjs_dev',
+      databaseHost: this.databaseHost || 'localhost',
+      databasePort: this.databasePort || 5432,
+      databaseUsername: this.databaseUsername || 'postgres',
+      databasePassword: this.databasePassword || 'postgres',
+      databaseDialect: this.databaseDialect || 'postgres',
+      redisHost: this.redisHost || 'localhost',
+      redisPort: this.redisPort || 6379,
+      redisDatabase: this.redisDatabase || 0
+    });
   },
 
   removeChatExample: function() {
@@ -541,7 +533,8 @@ module.exports = generators.Base.extend({
           done();
         })
         .catch(function(err) {
-          log.red(err);
+          log.red('Error removing the chat module: ' + err);
+          log.white('\nError:' + err);
           return;
         });
     } else {
@@ -558,7 +551,8 @@ module.exports = generators.Base.extend({
           done();
         })
         .catch(function(err) {
-          log.red(err);
+          log.red('Error removing the articles module: ' + err);
+          log.white('\nError:' + err);
           return;
         });
     } else {
