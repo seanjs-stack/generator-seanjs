@@ -12,7 +12,7 @@ Pronounced as SEEN.JS
 [![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)](http://seanjs.herokuapp.com)
 [![Built with Grunt](https://img.shields.io/badge/built%20with-GRUNT-orange.svg)](http://gruntjs.com/)
 
-[![NPM](https://nodei.co/npm/generator-seanjs.png?downloads=true)](https://nodei.co/npm/generator-seanjs/)
+[![NPM](https://nodei.co/npm/generator-seanjs.png?downloads=true&downloadRank=true)](https://nodei.co/npm/generator-seanjs/)
 
 Welcome to **SEAN.JS** Stack Official Yeoman Generator
 
