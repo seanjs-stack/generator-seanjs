@@ -12,6 +12,7 @@ var Promise = require('bluebird'),
   chalk = require('chalk'),
   pg = require('pg'),
   mysql = require('mysql'),
+  rimraf = require('rimraf'),
   log = require('./log');
 
 var exec = function(cmd) {
@@ -184,7 +185,11 @@ module.exports = generators.Base.extend({
     var remove = [];
 
     for (var i = 0; i < files.length; i++) {
-      remove.push(exec('rm ./' + folder + '/' + files[i]));
+      remove.push(rimraf('./' + folder + '/' + files[i], function(err) {
+        if (err) {
+          log.red(err);
+        }
+      }));
     }
 
     Promise.all(remove)
